@@ -1,8 +1,13 @@
+import 'package:app_exemplo/feature/home/screens/home_screen.dart';
 import 'package:app_exemplo/feature/login/screens/login_screen.dart';
+import 'package:app_exemplo/feature/register/screens/register_screen.dart';
 import 'package:app_exemplo/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
+  Intl.defaultLocale = 'pt_BR';
+
   runApp(MyApp());
 }
 
@@ -21,7 +26,14 @@ class MyApp extends StatelessWidget {
           elevation: 3,
         ),
       ),
-      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
+      // home: LoginScreen(),
+      initialRoute: 'login',
+      routes: {
+        'login': (context) => LoginScreen(),
+        'register': (context) => RegisterScreen(),
+        'home': (context) => HomeScreen(),
+      },
     );
   }
 }
