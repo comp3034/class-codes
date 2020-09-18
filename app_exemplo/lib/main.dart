@@ -1,12 +1,13 @@
 import 'package:app_exemplo/feature/home/screens/home_screen.dart';
 import 'package:app_exemplo/feature/login/screens/login_screen.dart';
+import 'package:app_exemplo/feature/message/screens/message_screen.dart';
 import 'package:app_exemplo/feature/register/screens/register_screen.dart';
 import 'package:app_exemplo/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 void main() {
-  Intl.defaultLocale = 'pt_BR';
+  // Intl.defaultLocale = 'pt_BR';
 
   runApp(MyApp());
 }
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         'login': (context) => LoginScreen(),
         'register': (context) => RegisterScreen(),
         'home': (context) => HomeScreen(),
+        'message': (context) => MessageScreen(),
       },
     );
   }

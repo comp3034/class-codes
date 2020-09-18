@@ -1,5 +1,6 @@
 import 'package:app_exemplo/utils/app_colors.dart';
 import 'package:app_exemplo/utils/components/friends_avatar.dart';
+import 'package:app_exemplo/utils/components/search.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final Faker faker = Faker();
   List lastMessages;
   List<Friend> friends = List<Friend>();
-  // var format = DateFormat.Hm();
+  var format = DateFormat('HH:mm');
 
   @override
   void initState() {
@@ -69,93 +70,104 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              Text(
-                'Chat',
-                style: TextStyle(
-                  fontSize: 36,
-                  color: AppColors.blue[700],
-                ),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Search...',
-                  labelStyle: TextStyle(
-                    color: AppColors.blue[800],
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: AppColors.blue[800],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Column(
+              children: [
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Chat',
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontFamily: 'Rubik',
+                        color: AppColors.blue[700],
+                      ),
                     ),
-                    onPressed: null,
+                  ],
+                ),
+                Search(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * .15,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: friends.length,
+                    itemBuilder: (context, index) {
+                      Friend p = friends[index];
+                      return FriendsAvatar(
+                        person: p,
+                      );
+                    },
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * .15,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: friends.length,
-                  itemBuilder: (context, index) {
-                    Friend p = friends[index];
-                    return FriendsAvatar(
-                      person: p,
-                    );
-                  },
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Recentes',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Rubik',
+                        color: AppColors.blue[700],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                'Recentes',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.blue[700],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: lastMessages.length,
-                    itemBuilder: (context, index) {
-                      var message = lastMessages[index];
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: lastMessages.length,
+                      itemBuilder: (context, index) {
+                        var message = lastMessages[index];
 
-                      print(message);
-                      return Padding(
-                        padding: const EdgeInsets.all(0),
-                        child: ListTile(
+                        print(message);
+                        return ListTile(
+                          onTap: () =>
+                              Navigator.of(context).pushNamed('message'),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                           leading: CircleAvatar(
                             backgroundImage:
                                 NetworkImage(message['person']['avatar']),
                           ),
                           title: Text(
-                            'Nome',
+                            message['person']['name'],
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 13,
+                              fontFamily: 'Rubik',
+                              fontWeight: FontWeight.w500,
                               color: AppColors.blue[700],
                             ),
                           ),
-                          subtitle: Text('${message['message']}'),
-                          trailing: Text(
-                            '18:00',
+                          subtitle: Text(
+                            '${message['message']}',
                             style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
+                              fontSize: 9,
+                              fontFamily: 'Rubik',
                             ),
                           ),
-                        ),
-                      );
-                    },
+                          trailing: Column(
+                            children: <Widget>[
+                              Text(
+                                '${format.format(message['created_at'])}',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontFamily: 'Rubik',
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

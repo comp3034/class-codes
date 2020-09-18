@@ -16,10 +16,15 @@ class FriendsAvatar extends StatelessWidget {
           CircleAvatar(
             backgroundImage: NetworkImage(person.avatar),
           ),
-          Text(
-            '${person.name}',
-            style: TextStyle(
-              color: AppColors.blue,
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              '${person.name}',
+              style: TextStyle(
+                fontSize: 9,
+                fontFamily: 'Rubik',
+                color: AppColors.blue,
+              ),
             ),
           ),
         ],
