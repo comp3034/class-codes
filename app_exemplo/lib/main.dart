@@ -1,22 +1,35 @@
-import 'package:app_exemplo/feature/home/screens/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+
+import 'package:app_exemplo/domain/controllers/friends_controller.dart';
+import 'package:app_exemplo/feature/home/screens/home_getx_screen.dart';
 import 'package:app_exemplo/feature/login/screens/login_screen.dart';
 import 'package:app_exemplo/feature/message/screens/message_screen.dart';
 import 'package:app_exemplo/feature/register/screens/register_screen.dart';
+import 'package:app_exemplo/ui/screens/profile_screen.dart';
 import 'package:app_exemplo/utils/app_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 void main() {
   // Intl.defaultLocale = 'pt_BR';
 
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FriendsController(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: AppColors.red,
@@ -25,16 +38,20 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(
           elevation: 3,
+          iconTheme: IconThemeData(
+            color: AppColors.blue[700],
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
       // home: LoginScreen(),
-      initialRoute: 'login',
+      initialRoute: LoginScreen.routeName,
       routes: {
-        'login': (context) => LoginScreen(),
-        'register': (context) => RegisterScreen(),
-        'home': (context) => HomeScreen(),
-        'message': (context) => MessageScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        RegisterScreen.routeName: (context) => RegisterScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(),
+        MessageScreen.routeName: (context) => MessageScreen(),
+        ProfileScreen.routeName: (context) => ProfileScreen(),
       },
     );
   }

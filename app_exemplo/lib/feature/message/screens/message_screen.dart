@@ -1,3 +1,6 @@
+import 'package:app_exemplo/domain/models/friend.dart';
+import 'package:app_exemplo/domain/models/models.dart';
+import 'package:app_exemplo/utils/arguments/message_screen_arguments.dart';
 import 'package:app_exemplo/utils/components/friends_avatar.dart';
 import 'package:app_exemplo/utils/components/search.dart';
 import 'package:faker/faker.dart';
@@ -7,6 +10,8 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 
 class MessageScreen extends StatefulWidget {
+  static const routeName = '/messages';
+
   @override
   _MessageScreenState createState() => _MessageScreenState();
 }
@@ -16,20 +21,14 @@ class _MessageScreenState extends State<MessageScreen> {
   List messages = List();
 
   @override
-  void initState() {
-    Faker faker = Faker();
-    friend = Friend(
-      name: 'John',
-      avatar: 'https://www.placecage.com/64/64',
-    );
-    messages.add({'message': faker.lorem.sentence(), 'origin': true});
-    messages.add({'message': faker.lorem.sentence(), 'origin': false});
-    messages.add({'message': faker.lorem.sentence(), 'origin': true});
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final MessageScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+
+    print(args);
+    friend = args.friend;
+    messages = args.messages;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white12,
@@ -39,47 +38,31 @@ class _MessageScreenState extends State<MessageScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundImage: NetworkImage(friend.avatar),
-                ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.red,
-                          radius: 6,
-                        ),
-                        Text('${friend.name}')
-                      ],
-                    ),
-                    Text('busy')
-                  ],
-                ),
-              ],
-            ),
+            buildTop(),
             Search(),
             Expanded(
               child: ListView.builder(
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
-                  var message = messages[index];
+                  Message message = messages[index];
                   return ChatBubble(
                     clipper: ChatBubbleClipper1(
-                        type: message['origin']
-                            ? BubbleType.sendBubble
-                            : BubbleType.receiverBubble),
-                    alignment: Alignment.topRight,
+                      type: message.isOrigin
+                          ? BubbleType.sendBubble
+                          : BubbleType.receiverBubble,
+                    ),
+                    alignment: message.isOrigin
+                        ? Alignment.topRight
+                        : Alignment.bottomLeft,
                     margin: EdgeInsets.only(top: 20),
-                    backGroundColor: Colors.blue,
+                    backGroundColor:
+                        message.wasRead ? Colors.blue : Colors.amber,
                     child: Container(
                       constraints: BoxConstraints(
                         maxWidth: MediaQuery.of(context).size.width * 0.7,
                       ),
                       child: Text(
-                        '${message['message']}',
+                        '${message.body}',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -92,4 +75,36 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
     );
   }
+
+  buildTop() => Row(
+        children: <Widget>[
+          CircleAvatar(
+            backgroundImage: NetworkImage(friend.avatar),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.red,
+                      radius: 6,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text('${friend.name}'),
+                    )
+                  ],
+                ),
+                Text(
+                  'busy',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
 }

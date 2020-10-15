@@ -1,8 +1,10 @@
+import 'package:app_exemplo/feature/home/screens/home_screen.dart';
 import 'package:app_exemplo/feature/register/screens/register_screen.dart';
 import 'package:app_exemplo/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/login';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -77,8 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed('home'),
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(HomeScreen.routeName),
                           color: AppColors.red,
                           child: Text(
                             'acessar'.toUpperCase(),
