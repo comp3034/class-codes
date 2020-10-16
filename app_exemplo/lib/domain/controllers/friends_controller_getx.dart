@@ -1,8 +1,12 @@
 import 'package:app_exemplo/domain/models/models.dart';
+import 'package:app_exemplo/services/datasources/users_datasource.dart';
 import 'package:faker/faker.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 
 class FriendsController extends GetxController {
+  UsersDatasource datasource = GetIt.I.get<UsersDatasource>();
+
   var friends = RxList<Friend>();
   var isLoading = RxBool(false);
 
@@ -12,8 +16,11 @@ class FriendsController extends GetxController {
 
   Future<void> fetch() async {
     toogleLoading();
-    mockData();
-    await Future.delayed(Duration(seconds: 4));
+    try {
+      friends = await datasource.fetch();
+    } catch (e) {
+      print(e);
+    }
     toogleLoading();
   }
 

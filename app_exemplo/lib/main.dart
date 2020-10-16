@@ -10,8 +10,11 @@ import 'package:app_exemplo/feature/register/screens/register_screen.dart';
 import 'package:app_exemplo/ui/screens/profile_screen.dart';
 import 'package:app_exemplo/utils/app_colors.dart';
 
-void main() {
+import 'injection.dart' as injection;
+
+void main() async {
   // Intl.defaultLocale = 'pt_BR';
+  await injection.init();
 
   runApp(
     MultiProvider(
@@ -30,30 +33,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: AppColors.red,
-        accentColor: AppColors.red,
-        fontFamily: 'Lato',
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(
-          elevation: 3,
-          iconTheme: IconThemeData(
-            color: AppColors.blue[700],
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: AppColors.red,
+          accentColor: AppColors.red,
+          fontFamily: 'Lato',
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          appBarTheme: AppBarTheme(
+            elevation: 3,
+            iconTheme: IconThemeData(
+              color: AppColors.blue[700],
+            ),
           ),
         ),
-      ),
-      debugShowCheckedModeBanner: false,
-      // home: LoginScreen(),
-      initialRoute: LoginScreen.routeName,
-      routes: {
-        LoginScreen.routeName: (context) => LoginScreen(),
-        RegisterScreen.routeName: (context) => RegisterScreen(),
-        HomeScreen.routeName: (context) => HomeScreen(),
-        MessageScreen.routeName: (context) => MessageScreen(),
-        ProfileScreen.routeName: (context) => ProfileScreen(),
-      },
-    );
+        debugShowCheckedModeBanner: false,
+        // home: LoginScreen(),
+        initialRoute: LoginScreen.routeName,
+        getPages: [
+          GetPage(name: LoginScreen.routeName, page: () => LoginScreen()),
+          GetPage(name: RegisterScreen.routeName, page: () => RegisterScreen()),
+          GetPage(name: HomeScreen.routeName, page: () => HomeScreen()),
+          GetPage(name: MessageScreen.routeName, page: () => MessageScreen()),
+          GetPage(name: ProfileScreen.routeName, page: () => ProfileScreen()),
+        ]);
   }
 }
 
