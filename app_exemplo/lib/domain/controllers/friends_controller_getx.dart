@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_exemplo/domain/models/models.dart';
 import 'package:app_exemplo/services/datasources/users_datasource.dart';
 import 'package:faker/faker.dart';
@@ -9,10 +11,11 @@ class FriendsController extends GetxController {
 
   var friends = RxList<Friend>();
   var isLoading = RxBool(false);
+  var selectedFriend = Friend().obs;
 
   toogleLoading() => isLoading.value = !isLoading.value;
 
-  var selectedFriend = Friend().obs;
+  Friend get friend => selectedFriend.value;
 
   Future<void> fetch() async {
     toogleLoading();

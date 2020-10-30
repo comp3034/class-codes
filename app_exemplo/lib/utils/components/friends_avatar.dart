@@ -1,22 +1,22 @@
 import 'package:app_exemplo/domain/controllers/controllers.dart';
 import 'package:app_exemplo/ui/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 import '../../domain/models/models.dart';
 import '../app_colors.dart';
 
 class FriendsAvatar extends StatelessWidget {
+  final FriendsController controller = Get.put(FriendsController());
   final Friend person;
 
-  const FriendsAvatar({Key key, this.person}) : super(key: key);
+  FriendsAvatar({Key key, this.person}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Provider.of<FriendsController>(context, listen: false)
-            .selectFriend(person);
+        controller.selectedFriend.value = this.person;
         Navigator.of(context).pushNamed(ProfileScreen.routeName);
       },
       child: Padding(

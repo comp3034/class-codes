@@ -91,64 +91,64 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    Visibility(
-                      visible: controller.friends.isNotEmpty,
-                      child: Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: controller.friends.length,
-                            itemBuilder: (context, index) {
-                              Friend friend = controller.friends[index];
-                              Message lastMessage = friend.messages.last;
-                              List<Message> messages = friend.messages;
-                              // print(message);
-                              return ListTile(
-                                onTap: () => Navigator.of(context).pushNamed(
-                                  MessageScreen.routeName,
-                                  arguments:
-                                      MessageScreenArguments(friend, messages),
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 4),
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(friend.avatar),
-                                ),
-                                title: Text(
-                                  friend.name,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontFamily: 'Rubik',
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.blue[700],
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  '${lastMessage.body}',
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    fontFamily: 'Rubik',
-                                  ),
-                                ),
-                                trailing: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      '${format.format(lastMessage.sendedAt)}',
-                                      style: TextStyle(
-                                        fontSize: 9,
-                                        fontFamily: 'Rubik',
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      replacement: Text('Não há novas mensagens...'),
-                    ),
+                    // Visibility(
+                    //   visible: controller.friends.isNotEmpty,
+                    //   child: Expanded(
+                    //     child: Container(
+                    //       child: ListView.builder(
+                    //         scrollDirection: Axis.vertical,
+                    //         itemCount: controller.friends.length,
+                    //         itemBuilder: (context, index) {
+                    //           Friend friend = controller.friends[index];
+                    //           Message lastMessage = friend.messages.last;
+                    //           List<Message> messages = friend.messages;
+                    //           // print(message);
+                    //           return ListTile(
+                    //             onTap: () => Navigator.of(context).pushNamed(
+                    //               MessageScreen.routeName,
+                    //               arguments:
+                    //                   MessageScreenArguments(friend, messages),
+                    //             ),
+                    //             contentPadding: EdgeInsets.symmetric(
+                    //                 horizontal: 0, vertical: 4),
+                    //             leading: CircleAvatar(
+                    //               backgroundImage: NetworkImage(friend.avatar),
+                    //             ),
+                    //             title: Text(
+                    //               friend.name,
+                    //               style: TextStyle(
+                    //                 fontSize: 13,
+                    //                 fontFamily: 'Rubik',
+                    //                 fontWeight: FontWeight.w500,
+                    //                 color: AppColors.blue[700],
+                    //               ),
+                    //             ),
+                    //             subtitle: Text(
+                    //               '${lastMessage.body}',
+                    //               style: TextStyle(
+                    //                 fontSize: 9,
+                    //                 fontFamily: 'Rubik',
+                    //               ),
+                    //             ),
+                    //             trailing: Column(
+                    //               children: <Widget>[
+                    //                 Text(
+                    //                   '${format.format(lastMessage.sendedAt)}',
+                    //                   style: TextStyle(
+                    //                     fontSize: 9,
+                    //                     fontFamily: 'Rubik',
+                    //                     color: Colors.grey,
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           );
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   replacement: Text('Não há novas mensagens...'),
+                    // ),
                   ],
                 ),
               ),

@@ -1,9 +1,10 @@
-import 'package:app_exemplo/domain/controllers/friends_controller.dart';
+import 'package:app_exemplo/domain/controllers/controllers.dart';
 import 'package:app_exemplo/domain/models/models.dart';
 import 'package:app_exemplo/utils/app_colors.dart';
 import 'package:app_exemplo/utils/components/friends_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -48,6 +49,8 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class ProfileTop extends StatelessWidget {
+  final FriendsController controller = Get.put(FriendsController());
+
   Map<dynamic, Widget> options = {
     0: Text('posts'),
     1: Text('info'),
@@ -55,108 +58,106 @@ class ProfileTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FriendsController>(
-      builder: (context, controller, child) => Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 12.0),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(controller.friend.avatar),
-                radius: 42,
-              ),
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 12.0),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(controller.friend.avatar),
+              radius: 42,
             ),
-            Text('${controller.friend.name}', style: TextStyle(fontSize: 28)),
-            Text('${controller.friend.age} years, ${controller.friend.city}'),
-            Text('last seen just now'),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        width: 46,
-                        child: OutlineButton(
-                          padding: const EdgeInsets.all(0),
-                          onPressed: null,
-                          child: Icon(Icons.person_add),
-                          shape: CircleBorder(),
-                        ),
+          ),
+          Text('${controller.friend.name}', style: TextStyle(fontSize: 28)),
+          Text('${controller.friend.age} years, ${controller.friend.city}'),
+          Text('last seen just now'),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      width: 46,
+                      child: OutlineButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: null,
+                        child: Icon(Icons.person_add),
+                        shape: CircleBorder(),
                       ),
-                      Text(
-                        'Follow',
-                        style: TextStyle(fontSize: 9),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: 46,
-                        child: OutlineButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: null,
-                          child: Icon(Icons.notifications_none),
-                          shape: CircleBorder(),
-                        ),
+                    ),
+                    Text(
+                      'Follow',
+                      style: TextStyle(fontSize: 9),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: 46,
+                      child: OutlineButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: null,
+                        child: Icon(Icons.notifications_none),
+                        shape: CircleBorder(),
                       ),
-                      Text(
-                        'Get notified',
-                        style: TextStyle(fontSize: 9),
+                    ),
+                    Text(
+                      'Get notified',
+                      style: TextStyle(fontSize: 9),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: 46,
+                      child: OutlineButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: null,
+                        child: Icon(Icons.message),
+                        shape: CircleBorder(),
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: 46,
-                        child: OutlineButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: null,
-                          child: Icon(Icons.message),
-                          shape: CircleBorder(),
-                        ),
+                    ),
+                    Text(
+                      'Message',
+                      style: TextStyle(fontSize: 9),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: 46,
+                      child: OutlineButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: null,
+                        child: Icon(Icons.more_horiz),
+                        shape: CircleBorder(),
                       ),
-                      Text(
-                        'Message',
-                        style: TextStyle(fontSize: 9),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: 46,
-                        child: OutlineButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: null,
-                          child: Icon(Icons.more_horiz),
-                          shape: CircleBorder(),
-                        ),
-                      ),
-                      Text(
-                        'More',
-                        style: TextStyle(fontSize: 9),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    Text(
+                      'More',
+                      style: TextStyle(fontSize: 9),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            // CupertinoSegmentedControl(
-            //   children: options,
-            //   onValueChanged: (value) => options[value],
-            //   borderColor: AppColors.blue[700],
-            //   padding: const EdgeInsets.symmetric(vertical: 4),
-            //   selectedColor: AppColors.blue[700],
-            //   unselectedColor: Colors.white,
-            //   pressedColor: AppColors.blue[700],
-            // ),
-          ],
-        ),
+          ),
+          // CupertinoSegmentedControl(
+          //   children: options,
+          //   onValueChanged: (value) => options[value],
+          //   borderColor: AppColors.blue[700],
+          //   padding: const EdgeInsets.symmetric(vertical: 4),
+          //   selectedColor: AppColors.blue[700],
+          //   unselectedColor: Colors.white,
+          //   pressedColor: AppColors.blue[700],
+          // ),
+        ],
       ),
     );
   }

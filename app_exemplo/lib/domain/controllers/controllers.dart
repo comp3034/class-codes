@@ -1,1 +1,1 @@
-export 'friends_controller.dart';
+export 'friends_controller_getx.dart';

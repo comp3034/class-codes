@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_exemplo/domain/models/message.dart';
 
 class Friend {
@@ -28,8 +30,14 @@ class Friend {
     address =
         json['address'] != null ? new Address.fromJson(json['address']) : null;
     phone = json['phone'];
-    avatar =
-        'https://api.adorable.io/avatars/64/{${username.toLowerCase()}}@adorable.png';
+    avatar = 'https://robohash.org/${username.toLowerCase()}';
+    // avatar =
+    //     'https://api.adorable.io/avatars/64/${username.toLowerCase()}@adorable.png';
+  }
+
+  @override
+  String toString() {
+    return 'Friend(name: $name, avatar: $avatar, age: $age, username: $username, email: $email, address: $address, phone: $phone, city: $city, status: $status, messages: $messages)';
   }
 }
 

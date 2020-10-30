@@ -1,30 +1,25 @@
-import 'dart:convert';
-
 import 'package:app_exemplo/domain/models/friend.dart';
+import 'package:app_exemplo/services/datasources/users_datasource.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-import 'package:http/http.dart' as http;
+class UsersDatasourceDio extends UsersDatasource {
+  Dio client;
 
-import '../users_datasource.dart';
-
-class UsersDatasourceHttp extends UsersDatasource {
-  http.Client client;
-
-  UsersDatasourceHttp({this.client});
+  UsersDatasourceDio({this.client});
 
   @override
   Future<List<Friend>> fetch() async {
     String url = 'https://jsonplaceholder.typicode.com/users/';
+    Response response;
     try {
-      var response = await client.get(url);
-      var friendsResponse = jsonDecode(response.body);
+      response = await client.get(url);
       RxList<Friend> friends = RxList<Friend>();
-      for (var friend in friendsResponse) {
+      for (var friend in response.data as List) {
         friends.add(Friend.fromJson(friend));
       }
       return friends;
     } catch (e) {
-      print(e);
       throw e;
     }
   }
