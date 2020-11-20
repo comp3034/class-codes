@@ -1,0 +1,11 @@
+POST http://127.0.0.1:8000/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "teste1@email.com",
+    "password": "q1w2e3r4"
+}
+
+###
+GET http://127.0.0.1:8000/api/user HTTP/1.1
+Authorization: token 3|I5N1HprWv6p2rw9StwhocPjr4T69RYRNDRaF6Mjh
