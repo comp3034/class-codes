@@ -1,0 +1,9 @@
+GET http://127.0.0.1:8000/api/groups HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/api/user/groups HTTP/1.1
+Authorization: Bearer 4|wz4tt98jtmMp2QFByTr9KU0kCBHBTHWfkT3oXBKD
+
+###
+GET http://127.0.0.1:8000/api/user/1/groups HTTP/1.1
+Authorization: Bearer 4|wz4tt98jtmMp2QFByTr9KU0kCBHBTHWfkT3oXBKD

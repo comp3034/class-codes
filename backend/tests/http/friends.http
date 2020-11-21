@@ -1,0 +1,11 @@
+GET http://127.0.0.1:8000/api/user/friends HTTP/1.1
+Authorization: Bearer 4|wz4tt98jtmMp2QFByTr9KU0kCBHBTHWfkT3oXBKD
+
+###
+POST http://127.0.0.1:8000/api/user/friend HTTP/1.1
+Authorization: Bearer 4|wz4tt98jtmMp2QFByTr9KU0kCBHBTHWfkT3oXBKD
+content-type: application/json
+
+{
+    "friend_id": 1,
+}

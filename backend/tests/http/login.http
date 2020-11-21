@@ -8,4 +8,4 @@ content-type: application/json
 
 ###
 GET http://127.0.0.1:8000/api/user HTTP/1.1
-Authorization: token 3|I5N1HprWv6p2rw9StwhocPjr4T69RYRNDRaF6Mjh
+Authorization: Bearer 4|wz4tt98jtmMp2QFByTr9KU0kCBHBTHWfkT3oXBKD
